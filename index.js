@@ -1,6 +1,6 @@
 // import { async } from "@firebase/util";
 import express from "express";
-import cors  from "cors";
+import cors from "cors";
 import {
     collection,
     getDocs,
@@ -8,13 +8,13 @@ import {
     getDoc,
     doc,
     setDoc,
-    deleteDoc
+    deleteDoc,
 } from "firebase/firestore";
 import { db } from "./firebase.js";
 
 const app = express();
 const port = 8080;
-app.use(cors())
+app.use(cors());
 
 app.use(express.json());
 // app.use((req, res, next) => {
@@ -44,6 +44,7 @@ app.post("/products", async (req, res) => {
     const docRef = await addDoc(collection(db, "products"), data);
 
     res.status(201).send({
+        status: "Amjilttai",
         id: docRef.id,
         ...data,
     });
@@ -94,7 +95,6 @@ app.delete("/products/:id", async (req, res) => {
     await deleteDoc(doc(db, "products", req.params.id));
     res.send(`${req.params.id} id-tai product ustlaa`);
 });
-
 
 //List categories
 app.get("/categories", (req, res) => {
